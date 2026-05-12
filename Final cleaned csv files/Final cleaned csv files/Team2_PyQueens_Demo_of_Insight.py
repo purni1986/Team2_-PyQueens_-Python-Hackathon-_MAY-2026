@@ -19,6 +19,7 @@ st.set_page_config(
     page_title="CGM Diabetes Dashboard",
     page_icon="💉",
     layout="wide",
+    initial_sidebar_state="collapsed",
 )
 sns.set_style("whitegrid")
 
@@ -42,7 +43,8 @@ st.markdown("""
 
     /* Main content wrapper */
     .block-container {
-        padding: 1.2rem 2.2rem 2rem 2.2rem;
+        padding: 4rem 1rem 2rem 1rem !important;
+        max-width: 100% !important;
         background-color: #0F0F1A !important;
     }
 
@@ -58,19 +60,30 @@ st.markdown("""
     [data-testid="stSidebarContent"] { background: transparent !important; }
 
     /* ── TOP-LEVEL tabs (main navigation) ── */
+    div[data-testid="stTabs"] { width: 100% !important; }
     .stTabs [data-baseweb="tab-list"] {
         background: #1A1A2E;
-        border-radius: 12px;
-        padding: 6px;
-        gap: 6px;
+        border-radius: 10px;
+        padding: 4px 4px;
+        gap: 2px;
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        scrollbar-width: none !important;
     }
+    .stTabs [data-baseweb="tab-list"]::-webkit-scrollbar { display: none !important; }
     .stTabs [data-baseweb="tab"] {
         color: #A0A0C0 !important;
         border-radius: 8px;
-        padding: 8px 20px;
+        padding: 6px 8px !important;
         font-weight: 600;
-        font-size: 0.92rem;
+        font-size: 0.74rem !important;
         background: transparent !important;
+        white-space: nowrap !important;
+        flex: 1 1 auto !important;
+        text-align: center !important;
     }
     .stTabs [aria-selected="true"] {
         background: linear-gradient(135deg, #7B2FF7, #E040FB) !important;
@@ -80,6 +93,7 @@ st.markdown("""
     .stTabs [data-baseweb="tab-panel"] {
         background-color: #0F0F1A !important;
         padding-top: 1rem;
+        width: 100% !important;
     }
 
     /* ── INNER sub-tabs ── */
@@ -217,7 +231,7 @@ def dark_fig(fig, axes=None):
 # ============================================================
 # DATA PATHS
 # ============================================================
-BASE = "/Users/tejaswinimode/Desktop/NUMPY/PyHackathon/Final cleaned csv files"
+BASE = r"C:\Users\vidya\OneDrive\Desktop\DATA ANALYST\NUMPY NINJA\GITHUB\Team2_-PyQueens_-Python-Hackathon-_MAY-2026\Final cleaned csv files\Final cleaned csv files"
 MERGED_PATH  = os.path.join(BASE, "Team2_PyQueens_Merged_Final.csv")
 CLEANED_PATH = os.path.join(BASE, "Team2_PyQueens_Final_Cleaned_File.csv")
 SLEEP_PATH   = os.path.join(BASE, "T1DM_patient_sleep_demographics_with_race.csv")
@@ -285,12 +299,12 @@ st.sidebar.caption("Built with Streamlit · Team PyQueens")
 # MAIN TABS (top-level navigation)
 # ============================================================
 tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
-    "🏠  Overview",
-    "📊  Descriptive",
-    "🔍  Diagnostic",
-    "💡  Prescriptive",
-    "🤖  Predictive",
-    "✅  Recommendations",
+    "🏠 Home",
+    "📊 Descriptive",
+    "🔍 Diagnostic",
+    "💡 Prescriptive",
+    "🤖 Predictive",
+    "✅ Insights",
 ])
 
 
@@ -1066,6 +1080,7 @@ with tab6:
     )
 
     st.markdown("<hr style='border-color:#2A2A4A; margin:1.5rem 0;'>", unsafe_allow_html=True)
+
     st.markdown("""
     <div style="
         background: linear-gradient(135deg, #1A0A2E, #0A1A2E);
@@ -1077,35 +1092,47 @@ with tab6:
       <div style="font-size:1.2rem; font-weight:800; color:#E0E0FF; margin-bottom:14px;">
         🏁 Final Conclusion
       </div>
-      <div style="color:#C0C0E0; font-size:0.95rem; line-height:1.8;">
-        This dashboard integrates
-        <strong style="color:#7B2FF7;">Descriptive</strong>,
-        <strong style="color:#E040FB;">Diagnostic</strong>,
-        <strong style="color:#00D4AA;">Prescriptive</strong>, and
-        <strong style="color:#FF9F1C;">Predictive</strong>
-        analytics to provide a comprehensive understanding of glucose behaviour
-        in Type-1 Diabetes Mellitus patients.<br><br>
+    </div>
+    """, unsafe_allow_html=True)
 
-        The <b>Descriptive</b> section summarises patient lifestyle and physiological
-        patterns — who spends the most time out of range, how activity and sleep
-        are distributed, and what the key cardiovascular indicators show.<br><br>
-
-        The <b>Diagnostic</b> section investigates the <em>why</em> behind glucose
-        variability — isolating the influence of sleep quality, carbohydrate intake,
-        insulin dosing, and physical activity on glucose stability.<br><br>
-
-        The <b>Prescriptive</b> section translates those findings into patient-level
-        risk classifications and concrete intervention recommendations — from dietary
-        changes to real-time HR + glucose spike response protocols.<br><br>
-
-        The <b>Predictive</b> section uses a Random Forest classifier to provide a
-        <strong style="color:#FF9F1C;">30-minute advance warning</strong> of dangerous
-        glucose zones — giving clinicians and patients a critical window to act before
-        a crisis occurs.<br><br>
-
-        Together, these four layers of analysis support
-        <strong style="color:#2ECC71;">data-driven decision-making</strong> and help
-        optimise diabetes management at the individual patient level.
-      </div>
+    st.markdown("""
+    <div style="
+        background: linear-gradient(135deg, #1A0A2E, #0A1A2E);
+        border: 1px solid #3A2A5A;
+        border-radius: 14px;
+        padding: 0px 28px 24px 28px;
+        margin-top: -14px;
+        color: #C0C0E0;
+        font-size: 0.95rem;
+        line-height: 1.8;
+    ">
+      This dashboard integrates
+      <span style="color:#7B2FF7; font-weight:700;">Descriptive</span>,
+      <span style="color:#E040FB; font-weight:700;">Diagnostic</span>,
+      <span style="color:#00D4AA; font-weight:700;">Prescriptive</span>, and
+      <span style="color:#FF9F1C; font-weight:700;">Predictive</span>
+      analytics to provide a comprehensive understanding of glucose behaviour
+      in Type-1 Diabetes Mellitus patients.
+      <br><br>
+      The <b>Descriptive</b> section summarises patient lifestyle and physiological
+      patterns — who spends the most time out of range, how activity and sleep
+      are distributed, and what the key cardiovascular indicators show.
+      <br><br>
+      The <b>Diagnostic</b> section investigates the <em>why</em> behind glucose
+      variability — isolating the influence of sleep quality, carbohydrate intake,
+      insulin dosing, and physical activity on glucose stability.
+      <br><br>
+      The <b>Prescriptive</b> section translates those findings into patient-level
+      risk classifications and concrete intervention recommendations — from dietary
+      changes to real-time HR + glucose spike response protocols.
+      <br><br>
+      The <b>Predictive</b> section uses a Random Forest classifier to provide a
+      <span style="color:#FF9F1C; font-weight:700;">30-minute advance warning</span>
+      of dangerous glucose zones — giving clinicians and patients a critical window
+      to act before a crisis occurs.
+      <br><br>
+      Together, these four layers of analysis support
+      <span style="color:#2ECC71; font-weight:700;">data-driven decision-making</span>
+      and help optimise diabetes management at the individual patient level.
     </div>
     """, unsafe_allow_html=True)
